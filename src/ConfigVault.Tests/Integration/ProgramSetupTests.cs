@@ -1,13 +1,12 @@
 using System.Net;
-using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace ConfigVault.Tests.Integration;
 
-public class ProgramSetupTests : IClassFixture<WebApplicationFactory<Program>>
+public class ProgramSetupTests : IClassFixture<TestWebApplicationFactory>
 {
-    private readonly WebApplicationFactory<Program> _factory;
+    private readonly TestWebApplicationFactory _factory;
 
-    public ProgramSetupTests(WebApplicationFactory<Program> factory)
+    public ProgramSetupTests(TestWebApplicationFactory factory)
     {
         _factory = factory;
     }
