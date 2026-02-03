@@ -12,6 +12,7 @@ import {
   AuthenticationError,
   ServiceUnavailableError,
 } from './errors';
+import { ConfigWatcher } from './watcher';
 
 export interface ConfigVaultClientOptions {
   baseUrl: string;
@@ -108,5 +109,13 @@ export class ConfigVaultClient {
     const response = await this.fetch('/health');
     const data = await response.json();
     return HealthResponseSchema.parse(data);
+  }
+
+  watch(filter?: string): ConfigWatcher {
+    return new ConfigWatcher({
+      baseUrl: this.baseUrl,
+      apiKey: this.apiKey,
+      filter,
+    });
   }
 }

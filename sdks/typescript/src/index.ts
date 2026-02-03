@@ -7,3 +7,9 @@ export {
   AuthenticationError,
   ServiceUnavailableError,
 } from './errors';
+export { ConfigWatcher } from './watcher';
+export type {
+  ConfigChangedEvent,
+  ConfigWatcherOptions,
+  ConfigChangeHandler,
+} from './watcher';
