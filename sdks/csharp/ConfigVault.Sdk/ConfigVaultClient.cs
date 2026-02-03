@@ -15,10 +15,12 @@ public class ConfigVaultClient : IConfigVaultClient
 {
     private readonly HttpClient _httpClient;
     private readonly JsonSerializerOptions _jsonOptions;
+    private readonly ConfigVaultClientOptions? _options;
     private bool _disposed;
 
     public ConfigVaultClient(ConfigVaultClientOptions options)
     {
+        _options = options;
         _httpClient = new HttpClient
         {
             BaseAddress = new Uri(options.BaseUrl.TrimEnd('/') + "/"),
@@ -35,6 +37,7 @@ public class ConfigVaultClient : IConfigVaultClient
 
     public ConfigVaultClient(HttpClient httpClient)
     {
+        _options = null;
         _httpClient = httpClient;
         _jsonOptions = new JsonSerializerOptions
         {
@@ -81,6 +84,16 @@ public class ConfigVaultClient : IConfigVaultClient
         var response = await _httpClient.GetAsync("health", ct).ConfigureAwait(false);
         var result = await response.Content.ReadFromJsonAsync<HealthResponse>(_jsonOptions, ct).ConfigureAwait(false);
         return result ?? throw new ConfigVaultException("Invalid health response from server");
+    }
+
+    public ConfigWatcher Watch(string? filterPattern = null)
+    {
+        if (_options == null)
+        {
+            throw new ConfigVaultException("ConfigVaultClientOptions are required to start watching.");
+        }
+
+        return new ConfigWatcher(_options, filterPattern);
     }
 
     private static void HandleErrorResponse(HttpResponseMessage response, string? key = null)
