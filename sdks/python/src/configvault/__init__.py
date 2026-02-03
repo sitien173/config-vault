@@ -8,6 +8,7 @@ from configvault.exceptions import (
     AuthenticationError,
     ServiceUnavailableError,
 )
+from configvault.watcher import ConfigWatcher, ConfigChangedEvent
 
 __version__ = "0.1.0"
 __all__ = [
@@ -19,4 +20,6 @@ __all__ = [
     "ConfigNotFoundError",
     "AuthenticationError",
     "ServiceUnavailableError",
+    "ConfigWatcher",
+    "ConfigChangedEvent",
 ]

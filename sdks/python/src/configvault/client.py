@@ -59,6 +59,24 @@ class ConfigVaultClient:
         """Async context manager exit."""
         await self.close()
 
+    def watch(self, filter_pattern: str | None = None) -> "ConfigWatcher":
+        """
+        Create a watcher for configuration changes.
+
+        Args:
+            filter_pattern: Optional glob pattern to filter keys (e.g., "production/*")
+
+        Returns:
+            ConfigWatcher instance for async iteration
+        """
+        from configvault.watcher import ConfigWatcher
+
+        return ConfigWatcher(
+            base_url=self._base_url,
+            api_key=self._api_key,
+            filter_pattern=filter_pattern,
+        )
+
     def _handle_error_response(self, response: httpx.Response, key: Optional[str] = None) -> None:
         """Handle error responses from the API."""
         if response.status_code == 401:
