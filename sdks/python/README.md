@@ -30,3 +30,27 @@ configs = await client.list("production")
 # Check service health
 health = await client.health()
 ```
+
+## Watching for Changes
+
+```python
+from configvault import ConfigVaultClient
+
+client = ConfigVaultClient(
+    base_url="http://localhost:5000",
+    api_key="your-api-key"
+)
+
+# Watch all changes
+watcher = client.watch()
+
+# Or filter by pattern
+watcher = client.watch("production/*")
+
+async for event in watcher.watch():
+    print(f"Changed keys: {event.keys}")
+    print(f"Timestamp: {event.timestamp}")
+
+# Stop watching
+watcher.stop()
+```

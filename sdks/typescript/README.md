@@ -30,3 +30,30 @@ const configs = await client.list('production');
 // Check service health
 const health = await client.health();
 ```
+
+## Watching for Changes
+
+```typescript
+import { ConfigVaultClient } from '@configvault/sdk';
+
+const client = new ConfigVaultClient({
+  baseUrl: 'http://localhost:5000',
+  apiKey: 'your-api-key',
+});
+
+// Create watcher with optional filter
+const watcher = client.watch('production/*');
+
+// Subscribe to changes
+const unsubscribe = watcher.onConfigChanged((event) => {
+  console.log('Changed keys:', event.keys);
+  console.log('Timestamp:', event.timestamp);
+});
+
+// Start watching
+watcher.start();
+
+// Later, stop watching
+watcher.stop();
+unsubscribe();
+```

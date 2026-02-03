@@ -53,3 +53,26 @@ public class MyService
     public MyService(IConfigVaultClient client) => _client = client;
 }
 ```
+
+## Watching for Changes
+
+```csharp
+var client = new ConfigVaultClient(options);
+
+// Create watcher with optional filter
+var watcher = client.Watch("production/*");
+
+// Subscribe to changes
+watcher.ConfigurationChanged += (sender, e) =>
+{
+    Console.WriteLine($"Changed keys: {string.Join(", ", e.Keys)}");
+    Console.WriteLine($"Timestamp: {e.Timestamp}");
+};
+
+// Start watching
+watcher.Start();
+
+// Later, stop watching
+await watcher.StopAsync();
+await watcher.DisposeAsync();
+```
