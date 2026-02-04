@@ -1,17 +1,31 @@
-# syntax=docker/dockerfile:1
+# syntax=docker/dockerfile:1.5
 
-FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
+
+ARG TARGETOS
+ARG TARGETARCH
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
+ARG NUGET_PACKAGES=/root/.nuget/packages
 
 COPY ConfigVault.sln ./
 COPY src/ConfigVault.Api/ConfigVault.Api.csproj src/ConfigVault.Api/
 COPY src/ConfigVault.Core/ConfigVault.Core.csproj src/ConfigVault.Core/
-RUN dotnet restore src/ConfigVault.Api/ConfigVault.Api.csproj
+
+RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
+    dotnet restore src/ConfigVault.Api/ConfigVault.Api.csproj
 
 COPY src/ src/
-RUN dotnet publish src/ConfigVault.Api/ConfigVault.Api.csproj -c Release -o /app/publish /p:UseAppHost=false
+RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
+    dotnet publish src/ConfigVault.Api/ConfigVault.Api.csproj \
+      -c Release \
+      -r linux-$TARGETARCH \
+      --self-contained false \
+      -o /app/publish \
+      /p:UseAppHost=false
 
-FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
+FROM --platform=$TARGETPLATFORM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
 WORKDIR /app
 
 RUN apt-get update \
