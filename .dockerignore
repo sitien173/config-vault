@@ -1,0 +1,16 @@
+**/bin/
+**/obj/
+**/.vs/
+**/.idea/
+**/.vscode/
+**/*.user
+**/*.suo
+**/*.cache
+**/*.log
+**/TestResults/
+.git
+.gitignore
+.worktrees/
+docs/
+sdks/
+src/ConfigVault.Tests/
