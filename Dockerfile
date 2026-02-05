@@ -7,18 +7,15 @@ ARG TARGETOS
 ARG TARGETARCH
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
-ARG NUGET_PACKAGES=/root/.nuget/packages
 
 COPY ConfigVault.sln ./
 COPY src/ConfigVault.Api/ConfigVault.Api.csproj src/ConfigVault.Api/
 COPY src/ConfigVault.Core/ConfigVault.Core.csproj src/ConfigVault.Core/
 
-RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
-    dotnet restore src/ConfigVault.Api/ConfigVault.Api.csproj
+RUN dotnet restore src/ConfigVault.Api/ConfigVault.Api.csproj
 
 COPY src/ src/
-RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
-    dotnet publish src/ConfigVault.Api/ConfigVault.Api.csproj \
+RUN dotnet publish src/ConfigVault.Api/ConfigVault.Api.csproj \
       -c Release \
       -r linux-$TARGETARCH \
       --self-contained false \
