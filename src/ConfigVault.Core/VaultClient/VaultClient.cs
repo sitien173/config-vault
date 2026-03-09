@@ -93,4 +93,17 @@ public class VaultClient : IVaultClient
             return false;
         }
     }
+
+    public async Task SyncAsync(CancellationToken ct = default)
+    {
+        try
+        {
+            var response = await _httpClient.PostAsync("sync", content: null, ct);
+            response.EnsureSuccessStatusCode();
+        }
+        catch (HttpRequestException ex)
+        {
+            throw new VaultConnectionException("Failed to sync with Vaultwarden", ex);
+        }
+    }
 }
