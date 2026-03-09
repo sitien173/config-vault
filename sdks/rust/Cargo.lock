@@ -78,6 +78,7 @@ name = "configvault-sdk"
 version = "0.1.0"
 dependencies = [
  "eventsource-stream",
+ "futures-util",
  "reqwest",
  "reqwest-eventsource",
  "serde",
