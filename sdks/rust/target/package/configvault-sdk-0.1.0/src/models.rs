@@ -33,7 +33,6 @@ pub struct ConfigChangedEvent {
 
 /// Response from `POST /sync`.
 #[derive(Debug, Deserialize)]
-#[serde(rename_all = "camelCase")]
 pub struct SyncResponse {
     pub success: bool,
     pub synced_at: String,

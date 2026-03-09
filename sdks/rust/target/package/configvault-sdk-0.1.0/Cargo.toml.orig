@@ -1,6 +1,6 @@
 [package]
 name = "configvault-sdk"
-version = "0.1.1"
+version = "0.1.0"
 edition = "2024"
 license = "MIT"
 description = "Async Rust client SDK for the ConfigVault configuration management API"

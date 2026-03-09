@@ -124,7 +124,7 @@ dependencies = [
 
 [[package]]
 name = "configvault-sdk"
-version = "0.1.1"
+version = "0.1.0"
 dependencies = [
  "eventsource-stream",
  "futures-util",
