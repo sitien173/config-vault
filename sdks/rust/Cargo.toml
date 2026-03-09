@@ -3,6 +3,13 @@ name = "configvault-sdk"
 version = "0.1.0"
 edition = "2024"
 license = "MIT"
+description = "Async Rust client SDK for the ConfigVault configuration management API"
+repository = "https://github.com/sitien173/config-vault"
+homepage = "https://github.com/sitien173/config-vault"
+documentation = "https://docs.rs/configvault-sdk"
+readme = "README.md"
+keywords = ["configvault", "config", "vault", "sse", "sdk"]
+categories = ["api-bindings", "config"]
 
 [lib]
 name = "configvault_sdk"
