@@ -6,9 +6,10 @@ Client SDKs for the ConfigVault configuration management API.
 
 | Language | Package | Directory |
 |----------|---------|-----------|
-| Python | `configvault` | [sdks/python](./python) |
+| Python | `configvault-sdk` | [sdks/python](./python) |
 | C# | `ConfigVault.Sdk` | [sdks/csharp](./csharp) |
-| TypeScript | `@configvault/sdk` | [sdks/typescript](./typescript) |
+| TypeScript | `@nst173/configvault-sdk` | [sdks/typescript](./typescript) |
+| Rust | `configvault-sdk` | [sdks/rust](./rust) |
 
 ## Common Interface
 
