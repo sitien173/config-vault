@@ -1,7 +1,22 @@
 {
-  "name": "@configvault/sdk",
+  "name": "@nst173/configvault-sdk",
   "version": "0.1.0",
   "description": "TypeScript SDK for ConfigVault API",
+  "author": "nst173",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sitien173/config-vault.git"
+  },
+  "homepage": "https://github.com/sitien173/config-vault",
+  "bugs": {
+    "url": "https://github.com/sitien173/config-vault/issues"
+  },
+  "keywords": [
+    "configvault",
+    "config",
+    "vault",
+    "sdk"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

@@ -5,13 +5,13 @@ TypeScript/JavaScript client for the ConfigVault configuration management API.
 ## Installation
 
 ```bash
-npm install @configvault/sdk
+npm install @nst173/configvault-sdk
 ```
 
 ## Usage
 
 ```typescript
-import { ConfigVaultClient } from '@configvault/sdk';
+import { ConfigVaultClient } from '@nst173/configvault-sdk';
 
 const client = new ConfigVaultClient({
   baseUrl: 'http://localhost:5000',
@@ -34,7 +34,7 @@ const health = await client.health();
 ## Watching for Changes
 
 ```typescript
-import { ConfigVaultClient } from '@configvault/sdk';
+import { ConfigVaultClient } from '@nst173/configvault-sdk';
 
 const client = new ConfigVaultClient({
   baseUrl: 'http://localhost:5000',

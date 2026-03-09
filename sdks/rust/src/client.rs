@@ -4,7 +4,7 @@ use std::time::Duration;
 use reqwest::header::{HeaderMap, HeaderValue};
 
 use crate::errors::{handle_error_response, ConfigVaultError};
-use crate::models::{ConfigListResponse, ConfigResponse, HealthResponse};
+use crate::models::{ConfigListResponse, ConfigResponse, HealthResponse, SyncResponse};
 use crate::watcher::ConfigWatcher;
 
 /// Async HTTP client for the ConfigVault API.
@@ -101,6 +101,23 @@ impl ConfigVaultClient {
 
         let data: ConfigListResponse = response.json().await?;
         Ok(data.configs)
+    }
+
+    /// Trigger an immediate sync with the upstream Vaultwarden server.
+    ///
+    /// Sends `POST /sync` and instructs ConfigVault to pull the latest data
+    /// from Vaultwarden. After a successful sync the next read of any
+    /// configuration key will return the up-to-date value.
+    pub async fn sync(&self) -> Result<SyncResponse, ConfigVaultError> {
+        let url = format!("{}/sync", self.base_url);
+        let response = self.http.post(&url).send().await?;
+
+        if !response.status().is_success() {
+            return Err(handle_error_response(response.status().as_u16(), None));
+        }
+
+        let data: SyncResponse = response.json().await?;
+        Ok(data)
     }
 
     /// Check the health of the ConfigVault service.

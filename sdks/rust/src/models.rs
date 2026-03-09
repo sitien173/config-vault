@@ -30,3 +30,11 @@ pub struct ConfigChangedEvent {
     pub keys: Vec<String>,
     pub timestamp: String,
 }
+
+/// Response from `POST /sync`.
+#[derive(Debug, Deserialize)]
+pub struct SyncResponse {
+    pub success: bool,
+    pub synced_at: String,
+    pub message: String,
+}

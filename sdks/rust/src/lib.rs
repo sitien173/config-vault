@@ -35,5 +35,5 @@ pub mod watcher;
 // Convenient re-exports of the most commonly used types
 pub use client::ConfigVaultClient;
 pub use errors::ConfigVaultError;
-pub use models::{ConfigChangedEvent, ConfigListResponse, ConfigResponse, HealthResponse};
+pub use models::{ConfigChangedEvent, ConfigListResponse, ConfigResponse, HealthResponse, SyncResponse};
 pub use watcher::ConfigWatcher;

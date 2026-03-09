@@ -5,7 +5,7 @@ Python client for the ConfigVault configuration management API.
 ## Installation
 
 ```bash
-pip install configvault
+pip install configvault-sdk
 ```
 
 ## Usage
